@@ -1,0 +1,22 @@
+{
+  "name": "zoho-reports",
+  "version": "1.0.0",
+  "description": "Node client for Zoho Reports",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/afanasy/zoho-reports.git"
+  },
+  "keywords": [
+    "zoho",
+    "reports"
+  ],
+  "author": "Afanasii Kurakin <afanasy@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/afanasy/zoho-reports/issues"
+  },
+  "homepage": "https://github.com/afanasy/zoho-reports"
+}
