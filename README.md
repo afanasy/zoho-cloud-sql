@@ -1,30 +1,24 @@
-Client library for [https://zohoreportsapi.wiki.zoho.com/|Zoho Reports API]
-
-## Installation
-```
-npm i zoho-reports
-```
+Client library for (Zoho Reports CloudSQL)[https://zohoreportsapi.wiki.zoho.com/Zoho-Reports-CloudSQL.html]
 
 ## Example
 ```js
-var ZohoReports = require('zoho-reports')
+var ZohoCloudSql = require('zoho-cloud-sql')
 
-var zoho = new ZohoReports({
+var db = new ZohoCloudSql({
   user: 'username',
   authtoken: 'authtoken',
   db: 'db'
 })
 
-zoho.query('select * from table', function (err, data) {
+db.query('select * from table', function (err, data) {
   console.log(err, data)
 })
 
-zoho.count('table', function (err, data) {
+db.count('table', function (err, data) {
   console.log(err, data)
 })
 
-
-zoho.max('table', function (err, data) {
+db.max('table', function (err, data) {
   console.log(err, data)
 })
 ```
