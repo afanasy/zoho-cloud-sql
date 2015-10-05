@@ -1,4 +1,4 @@
-Client library for (Zoho Reports CloudSQL)[https://zohoreportsapi.wiki.zoho.com/Zoho-Reports-CloudSQL.html]
+Client library for [Zoho Reports CloudSQL](https://zohoreportsapi.wiki.zoho.com/Zoho-Reports-CloudSQL.html)
 
 ## Example
 ```js
