@@ -20,7 +20,6 @@ ZohoReports.prototype.query = function (query, done) {
   }
   request.post({url: this.url + '/' + this.user + '/' + this.db, qs: get, form: {ZOHO_SQLQUERY: query}}, function (err, res, data) {
     data = data && data.replace(/\\'/g, "'")
-    console.log(data)
     if (err)
       return done(err, data)
     try {
@@ -41,7 +40,6 @@ ZohoReports.prototype.count = function (table, field, done) {
     field = 'id'
   }
   this.query(sqlString.format('select count(??) from ??', [field, table]), function (err, data) {
-    console.log(err, data)
     done(err, data && data.rows[0] && +data.rows[0][0])
   })
 }
@@ -52,7 +50,6 @@ ZohoReports.prototype.max = function (table, field, done) {
     field = 'id'
   }
   this.query(sqlString.format('select max(??) from ??', [field, table]), function (err, data) {
-    console.log(err, data)
     done(err, data && data.rows[0] && +data.rows[0][0])
   })
 }
