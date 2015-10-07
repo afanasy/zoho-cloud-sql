@@ -3,7 +3,6 @@ var
   request = require('request'),
   sqlString = require('sqlstring')
 
-
 var ZohoReports = module.exports = function (d) {
   _.defaults(this, d, {
     url: 'https://reportsapi.zoho.com/api'

@@ -1,6 +1,6 @@
 {
   "name": "zoho-cloud-sql",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "Zoho Reports CloudSQL client",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/afanasy/zoho-cloud-sql/issues"
   },
-  "homepage": "https://github.com/afanasy/zoho-cloud-sql"
+  "homepage": "https://github.com/afanasy/zoho-cloud-sql",
+  "dependencies": {
+    "underscore": "1.8.3",
+    "request": "2.60.0",
+    "sqlstring": "1.0.0"
+  }
 }
