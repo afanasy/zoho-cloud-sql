@@ -39,7 +39,7 @@ ZohoReports.prototype.count = function (table, field, done) {
     field = 'id'
   }
   this.query(sqlString.format('select count(??) from ??', [field, table]), function (err, data) {
-    done(err, data && data.rows[0] && +data.rows[0][0])
+    done(err, data && data.rows[0] && data.rows[0][0])
   })
 }
 
