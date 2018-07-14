@@ -17,7 +17,6 @@ ZohoReports.prototype.query = function (query, done) {
     ZOHO_API_VERSION: '1.0'
   }
   superagent.post(this.url + '/' + this.user + '/' + this.db).query(config).type('form').send({ZOHO_SQLQUERY: query}).buffer().end(function (err, res) {
-  //request.post({url: this.url + '/' + this.user + '/' + this.db, qs: get, form: {ZOHO_SQLQUERY: query}}, function (err, res, data) {
     var data = res.text && res.text.replace(/\\'/g, "'")
     if (err)
       return done(err, data)
@@ -44,8 +43,6 @@ ZohoReports.prototype.max = function (table, field, done) {
     field = 'id'
   }
   this.query(sqlString.format('select max(??) from ??', [field, table]), function (err, data) {
-    if (err && err.code == 7409) //table does not exist
-      return done(null, 0)
     done(err, data && data.rows[0] && +data.rows[0][0])
   })
 }
