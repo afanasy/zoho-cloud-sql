@@ -1,8 +1,6 @@
-var
-  _ = require('underscore'),
-  request = require('request'),
-  sqlString = require('sqlstring')
-
+var _ = require('underscore')
+var superagent = require('superagent')
+var sqlString = require('sqlstring')
 
 var ZohoReports = module.exports = function (d) {
   _.defaults(this, d, {
@@ -11,24 +9,19 @@ var ZohoReports = module.exports = function (d) {
 }
 
 ZohoReports.prototype.query = function (query, done) {
-  var get = {
+  var config = {
     ZOHO_ACTION: 'EXPORT',
     ZOHO_OUTPUT_FORMAT: 'JSON',
     ZOHO_ERROR_FORMAT: 'JSON',
     authtoken: this.authtoken,
     ZOHO_API_VERSION: '1.0'
   }
-  request.post({url: this.url + '/' + this.user + '/' + this.db, qs: get, form: {ZOHO_SQLQUERY: query}}, function (err, res, data) {
-    data = data && data.replace(/\\'/g, "'")
-    console.log(data)
+  superagent.post(this.url + '/' + this.user + '/' + this.db).query(config).type('form').send({ZOHO_SQLQUERY: query}).buffer().end(function (err, res) {
+  //request.post({url: this.url + '/' + this.user + '/' + this.db, qs: get, form: {ZOHO_SQLQUERY: query}}, function (err, res, data) {
+    var data = res.text && res.text.replace(/\\'/g, "'")
     if (err)
       return done(err, data)
-    try {
-      data = JSON.parse(data)
-    }
-    catch (e) {
-      return done({message: 'JSON.parse error'}, data)
-    }
+    try {data = JSON.parse(data)} catch (e) {return done(e, data)}
     if (!data.response)
       return done({message: 'Error parsing response'}, data)
     done(data.response.error, data.response.result)
@@ -41,8 +34,7 @@ ZohoReports.prototype.count = function (table, field, done) {
     field = 'id'
   }
   this.query(sqlString.format('select count(??) from ??', [field, table]), function (err, data) {
-    console.log(err, data)
-    done(err, data && data.rows[0] && +data.rows[0][0])
+    done(err, data && data.rows[0] && data.rows[0][0])
   })
 }
 
@@ -52,7 +44,8 @@ ZohoReports.prototype.max = function (table, field, done) {
     field = 'id'
   }
   this.query(sqlString.format('select max(??) from ??', [field, table]), function (err, data) {
-    console.log(err, data)
+    if (err && err.code == 7409) //table does not exist
+      return done(null, 0)
     done(err, data && data.rows[0] && +data.rows[0][0])
   })
 }
